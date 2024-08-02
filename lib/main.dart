@@ -1,29 +1,38 @@
+// lib/main.dart
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'view/home_view.dart';
-import 'view/home_view_model.dart';
+import 'views/home/home_view.dart';
+import 'viewmodels/word_view_model.dart';
 
 void main() {
-  runApp(
-    MultiProvider(
-      providers: [
-        Provider(create: (_) => WordViewModel()),
-      ],
-      child: MyApp(),
-    ),
-  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Dictionary App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => WordViewModel()),
+      ],
+      child: MaterialApp(
+        title: 'Dictionary App',
+        theme: ThemeData(
+          primarySwatch: Colors.amber,
+          primaryColor: Colors.amber,
+          buttonTheme: ButtonThemeData(
+            buttonColor: Colors.amber,
+            textTheme: ButtonTextTheme.primary,
+          ),
+          appBarTheme: AppBarTheme(
+            color: Colors.amber,
+          ),
+        ),
+        home: HomeView(),
+        debugShowCheckedModeBanner: false,
+
       ),
-      home: HomeView(),
     );
   }
 }
